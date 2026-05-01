@@ -1,16 +1,16 @@
-import countryImg from "../assets/download.png";
+import type { Country } from "../state/CountrySlice/countrySlice";
 
 
-const Card = ()=> {
+const Card = ({country}: {country:Country})=> {
     return(
        <div className="max-w-65 rounded overflow-hidden shadow-md bg-slate-700 h-80">
-        <img className="w-full" src={countryImg} alt="Sunset in the mountains"/>
+        <img className="w-full" src={country?.flags?.svg ?? country?.flags?.png} />
         <div className="px-6 py-4 text-white">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+            <div className="font-bold text-xl mb-2">{country?.name.common}</div>
            <ul className="grid gap-y-0.5">
-            <li className="font-medium">Population: <span className="font-thin">32343434,33</span></li>
-            <li className="font-medium">Region: <span className="font-thin">Africa</span></li>
-            <li className="font-medium">Capital: <span className="font-thin">Mogadishu</span></li>
+            <li className="font-medium">Population: <span className="font-thin">{country?.population}</span></li>
+            <li className="font-medium">Region: <span className="font-thin">{country?.region}</span></li>
+            <li className="font-medium">Capital: <span className="font-thin">{country?.capital[0]}</span></li>
            </ul>
         </div>
        
