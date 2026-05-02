@@ -29,7 +29,7 @@ const Home = ()=> {
                       <Link to={`/${nation.name.common}`}>
 
                      
-                         <Card key={index} country={nation}/>
+                         <Card key={nation.cca3} country={nation}/>
                           </Link>
                     ))}
                    

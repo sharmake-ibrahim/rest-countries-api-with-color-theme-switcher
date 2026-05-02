@@ -1,7 +1,23 @@
 import { Link, useParams } from "react-router-dom";
-import somalia from "../assets/download.png";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { fetchAllCountries } from "../state/CountrySlice/countrySlice";
+import { useEffect } from "react";
+
 
 const Detail = ()=> {
+       const dispatch = useAppDispatch();
+      const all = useAppSelector((state) => state.countries.all);
+      const {countryIndex} = useParams()
+   
+    
+      useEffect(() => {
+        dispatch(fetchAllCountries());
+      }, [dispatch]);
+
+      const pageInfo = all.find((country)=> country.name.common === countryIndex );
+      console.log("country detial info", pageInfo);
+
+
     return(
     
 
@@ -15,18 +31,18 @@ const Detail = ()=> {
 
             <section className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-7 max-w-7xl justify-center place-items-center">
                 
-                 <img className="w-75 md:w-125  lg:w-135 rounded-md" src={somalia} alt="" />
+                 <img className="w-75 md:w-125  lg:w-135 rounded-md" src={pageInfo?.flags.png && pageInfo.flags.svg} alt="" />
             
                 <div className="flex-1 flex flex-col justify-center m-2">
-                <h1 className="text-3xl font-bold mb-8 text-white">Belgium</h1>
+                <h1 className="text-3xl font-bold mb-8 text-white">{pageInfo?.capital}</h1>
 
                 <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 mb-10 text-white">
                     <div className="flex flex-col gap-2">
-                    <p className="text-sm"><span className="font-semibold">Native Name:</span> België</p>
-                    <p className="text-sm"><span className="font-semibold">Population:</span> 11,319,511</p>
-                    <p className="text-sm"><span className="font-semibold">Region:</span> Europe</p>
-                    <p className="text-sm"><span className="font-semibold">Sub Region:</span> Western Europe</p>
-                    <p className="text-sm"><span className="font-semibold">Capital:</span> Brussels</p>
+                    <p className="text-sm"><span className="font-semibold">Native Name:</span>{pageInfo?.name.official} </p>
+                    <p className="text-sm"><span className="font-semibold">Population:</span> {pageInfo?.population}</p>
+                    <p className="text-sm"><span className="font-semibold">Region:</span> {pageInfo?.region}</p>
+        
+                    <p className="text-sm"><span className="font-semibold">Capital:</span> {pageInfo?.capital}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                     <p className="text-sm"><span className="font-semibold">Top Level Domain:</span> .be</p>
