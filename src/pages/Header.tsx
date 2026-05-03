@@ -1,6 +1,6 @@
 import moon from "../assets/moon.svg";
 import bordedMoon from "../assets/moon-light-mode.svg";
-import DropDown from "./DropDown";
+// import DropDown from "./DropDown";
 const Header = ()=> {
     return(
     <>
@@ -13,7 +13,7 @@ const Header = ()=> {
             <h5>Dark Mode</h5>
             </div>
         </header>
-        <DropDown/>
+        {/* <DropDown/> */}
         </>
 
     )

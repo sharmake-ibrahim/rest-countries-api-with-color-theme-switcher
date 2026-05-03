@@ -1,13 +1,19 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import searchIcon from "../assets/search-icon.svg";
-export default function DropDown() {
+
+interface DropDownProps {
+  onSearch: (query: string) => void;
+}
+export default function DropDown({onSearch}:DropDownProps) {
   return (
     <div className='w-full h-17 flex justify-between px-9 py-4 bg-slate-800 gap-y-1.5 max-sm:block max-h-50'>
 
         <div className='flex justify-center items-center  max-w-125 text-white bg-slate-700 rounded-md p-2.5'>
             <img className='fill-white  dark:fill-white w-5 h-5 m-1 ' src={searchIcon} alt="search icon" />
-            <input className='py-3 text-white border-none outline-none max-w-125 h-5' type="text"placeholder='Search for a country…'/>
+            <input className='py-3 text-white border-none outline-none max-w-125 h-5' type="text"placeholder='Search for a country…'
+            onChange={(e)=>onSearch(e.target.value)}
+            />
         </div>
 
          <Menu as="div" className="relative inline-block w-30 ">
