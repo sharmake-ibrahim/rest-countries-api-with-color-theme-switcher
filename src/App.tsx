@@ -10,6 +10,8 @@ import Asia from './pages/Asia';
 import AsiaDetail from './pages/AsiaDetail';
 import Europe from './pages/Europe';
 import EuropeDetail from './pages/EuropeDetail';
+import Oceania from './pages/Oceania';
+import OceaniaDetail from './pages/OceaniaDetail';
 
 function App() {
 
@@ -27,6 +29,8 @@ function App() {
         <Route path='/asia/:common' element={<AsiaDetail />} />
          <Route path='/europe' element={<Europe />} />
         <Route path='/europe/:common' element={<EuropeDetail />} />
+         <Route path='/oceania' element={<Oceania />} />
+        <Route path='/oceania/:common' element={<OceaniaDetail />} />
 
 
       </Routes>
