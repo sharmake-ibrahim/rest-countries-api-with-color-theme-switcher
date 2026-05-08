@@ -32,14 +32,14 @@ export type Country = {
 
 // ─── Region ──────────────────────────────────────────────────────────────────
 
-export type RegionKey = "Africa" | "Americas" | "Asia" | "Europe" | "Oceania";
+export type RegionKey = "Africa" | "America" | "Asia" | "Europe" | "Oceania";
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
 interface CountriesState {
   all: Country[];
   Africa: Country[];
-  Americas: Country[];
+  America: Country[];
   Asia: Country[];
   Europe: Country[];
   Oceania: Country[];
@@ -50,7 +50,7 @@ interface CountriesState {
 const initialState: CountriesState = {
   all: [],
   Africa: [],
-  Americas: [],
+  America: [],
   Asia: [],
   Europe: [],
   Oceania: [],

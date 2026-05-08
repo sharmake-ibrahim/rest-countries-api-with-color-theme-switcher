@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect } from "react";
-import type Africa from "./Africa";
+
 
 import { fetchCountriesByRegion } from "../state/CountrySlice/countrySlice";
 const AfricaDetail = ()=> {
