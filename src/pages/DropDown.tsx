@@ -52,12 +52,11 @@ export default function DropDown({onSearch}:DropDownProps) {
             </NavLink>
           </MenuItem>
           <MenuItem>
-            <a
-              href="#"
+            <NavLink to="/europe"
               className="block px-4 py-2 text-sm text-white data-focus:bg-white/10  data-focus:outline-hidden "
             >
               Europe
-            </a>
+            </NavLink>
           </MenuItem>
           <MenuItem>
             <a

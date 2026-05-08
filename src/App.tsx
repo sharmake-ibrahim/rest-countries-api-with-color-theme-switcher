@@ -8,6 +8,8 @@ import America from './pages/America';
 import AmericaDetail from './pages/AmericaDetail';
 import Asia from './pages/Asia';
 import AsiaDetail from './pages/AsiaDetail';
+import Europe from './pages/Europe';
+import EuropeDetail from './pages/EuropeDetail';
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
         <Route path='/america/:common' element={<AmericaDetail />} />
          <Route path='/asia' element={<Asia />} />
         <Route path='/asia/:common' element={<AsiaDetail />} />
+         <Route path='/europe' element={<Europe />} />
+        <Route path='/europe/:common' element={<EuropeDetail />} />
 
 
       </Routes>
