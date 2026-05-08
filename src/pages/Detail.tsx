@@ -43,20 +43,46 @@ const Detail = ()=> {
                     <p className="text-sm"><span className="font-semibold">Region:</span> {pageInfo?.region}</p>
         
                     <p className="text-sm"><span className="font-semibold">Capital:</span> {pageInfo?.capital}</p>
+                    <p className="text-sm"><span className="font-semibold">Currencies:</span>
+               
+                            {Object.values(pageInfo?.currencies ?? {}).map((currency) => (
+                          <span key={currency.name}>
+                            {currency.name} ({currency.symbol})
+                          </span>
+                        ))}
+                     </p>
+                    <p className="text-sm"><span className="font-semibold">Languages:</span>
+               
+                           {Object.values(pageInfo?.languages ?? {}).map((language) => (
+                                <span key={language}>{language}</span>
+                              ))}
+                     </p>
                     </div>
                     <div className="flex flex-col gap-2">
-                    <p className="text-sm"><span className="font-semibold">Top Level Domain:</span> .be</p>
-                    <p className="text-sm"><span className="font-semibold">Currencies:</span> Euro</p>
-                    <p className="text-sm"><span className="font-semibold">Languages:</span> Dutch, French, German</p>
+                  
                     </div>
   </div>
 
   <div className="flex flex-wrap items-center gap-3">
     <span className="font-semibold text-sm text-white whitespace-nowrap">Border Countries:</span>
     <div className="flex flex-wrap gap-2 text-white">
-      <span className="px-4 py-1 text-sm bg-slate-700 border border-white/10 rounded">France</span>
-      <span className="px-4 py-1 text-sm bg-slate-700 border border-white/10 rounded">Germany</span>
-      <span className="px-4 py-1 text-sm bg-slate-700 border border-white/10 rounded">Netherlands</span>
+  
+      {pageInfo?.borders.length ? (
+      pageInfo.borders.map((border) => (
+        <span
+          key={border}
+          className="px-4 py-1 text-sm bg-slate-700 border border-white/10 rounded"
+        >
+          {border}
+        </span>
+      ))
+) : (
+  <span className="px-4 py-1 text-sm bg-slate-700 border border-white/10 rounded">
+    No found
+  </span>
+)}
+      
+         
     </div>
   </div>
 </div>

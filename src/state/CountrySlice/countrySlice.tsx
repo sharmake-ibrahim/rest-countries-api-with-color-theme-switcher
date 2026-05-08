@@ -1,15 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export type Country = {
-  name: { common: string; official: string };
-  flags: { svg: string; png: string };
-  population: number;
-  region: string;
-  capital: string[];
-  cca3: string;
+export type NativeName = {
+  official: string;
+  common: string;
 };
 
-type RegionKey = "Africa" | "Americas" | "Asia" | "Europe" | "Oceania";
+export type Currency = {
+  name: string;
+  symbol: string;
+};
+
+export type Country = {
+  name: {
+    common: string;
+    official: string;
+    nativeName: Record<string, NativeName>;
+  };
+  flags: {
+    svg: string;
+    png: string;
+    alt: string;
+  };
+  tld: string[];                        // e.g. [".ai"], [".uk"]
+  currencies: Record<string, Currency>; // e.g. { "USD": { name: "...", symbol: "$" } }
+  languages: Record<string, string>;    // e.g. { "eng": "English" }
+  capital: string[];                    // can be empty []
+  region: string;
+  subregion: string;
+  borders: string[];                    // CCA3 codes, can be empty []
+  population: number;
+};
+
+// ─── Region ──────────────────────────────────────────────────────────────────
+
+export type RegionKey = "Africa" | "Americas" | "Asia" | "Europe" | "Oceania";
+
+// ─── State ───────────────────────────────────────────────────────────────────
 
 interface CountriesState {
   all: Country[];
@@ -33,10 +58,13 @@ const initialState: CountriesState = {
   error: null,
 };
 
+
+
+
 export const fetchAllCountries = createAsyncThunk(
   "countries/fetchAll",
   async () => {
-    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,capital,currencies,flags");
+    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,capital,currencies,region,subregion,languages,borders,tld,flags,population");
     if (!res.ok) throw new Error("Failed to fetch countries");
     return res.json() as Promise<Country[]>;
   }
@@ -45,7 +73,7 @@ export const fetchAllCountries = createAsyncThunk(
 export const fetchCountriesByRegion = createAsyncThunk(
   "countries/fetchByRegion",
   async (region: RegionKey) => {
-    const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
+    const res = await fetch(`https://restcountries.com/v3.1/all?fields=name,capital,currencies,region,subregion,languages,borders,tld,flags,population/${region}`);
     if (!res.ok) throw new Error(`Failed to fetch ${region}`);
     const data: Country[] = await res.json();
     return { region, data };
