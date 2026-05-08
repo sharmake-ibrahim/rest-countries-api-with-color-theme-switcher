@@ -70,10 +70,11 @@ export const fetchAllCountries = createAsyncThunk(
   }
 );
 
+const FIELDS = "name,flags,tld,currencies,languages,capital,region,subregion,borders,population";
 export const fetchCountriesByRegion = createAsyncThunk(
   "countries/fetchByRegion",
   async (region: RegionKey) => {
-    const res = await fetch(`https://restcountries.com/v3.1/all?fields=name,capital,currencies,region,subregion,languages,borders,tld,flags,population/${region}`);
+    const res = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=${FIELDS}`);
     if (!res.ok) throw new Error(`Failed to fetch ${region}`);
     const data: Country[] = await res.json();
     return { region, data };

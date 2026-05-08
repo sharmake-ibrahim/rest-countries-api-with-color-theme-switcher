@@ -25,7 +25,7 @@ const [debouncedSearch] = useDebounce(search, 300);
   }, [dispatch]);
 
   // console.log(all);
-  const countries = useMemo(
+  const africa = useMemo(
   () => all.filter(c => c.name.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
   [all, debouncedSearch]
 );
@@ -38,8 +38,8 @@ const [debouncedSearch] = useDebounce(search, 300);
    
         <div className="container mx-auto px-4 max-w-6xl justify-center grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-2 gap-x-2 pt-5">
 
-                    {countries.length === 0 ? <p className="text-white text-center pt-10">No countries found.</p> 
-                    : countries.map((nation, index)=>(
+                    {africa.length === 0 ? <p className="text-white text-center pt-10">No countries found.</p> 
+                    : africa.map((nation, index)=>(
                       <Link to={`/${nation.name.common}`}>
 
                      

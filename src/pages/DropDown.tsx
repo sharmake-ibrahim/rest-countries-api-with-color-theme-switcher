@@ -1,6 +1,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import searchIcon from "../assets/search-icon.svg";
+import { NavLink } from 'react-router-dom';
+
 
 interface DropDownProps {
   onSearch: (query: string) => void;
@@ -28,12 +30,11 @@ export default function DropDown({onSearch}:DropDownProps) {
       >
         <div className="py-1">
           <MenuItem>
-            <a
-              href="#"
+            <NavLink to="/africa"
               className="block px-4 py-2 text-sm text-white data-focus:bg-white/10  data-focus:outline-hidden "
             >
               Africa
-            </a>
+            </NavLink>
           </MenuItem>
           <MenuItem>
             <a
