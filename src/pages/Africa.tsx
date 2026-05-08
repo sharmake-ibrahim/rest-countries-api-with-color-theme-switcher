@@ -5,16 +5,16 @@ import { useEffect } from "react";
 import Card from "./Card";
 import Header from "./Header";
 const Africa = ()=> {
-         const dispatch = useAppDispatch();
-  const africaCountries = useAppSelector((state) => state.countries.Africa);
-  const loading = useAppSelector((state) => state.countries.loading);
-  const error = useAppSelector((state) => state.countries.error);
+const dispatch = useAppDispatch();
+const africaCountries = useAppSelector((state) => state.countries.Africa);
+const loading = useAppSelector((state) => state.countries.loading);
+const error = useAppSelector((state) => state.countries.error);
 
-  useEffect(() => {
-    if (africaCountries.length === 0) {
-      dispatch(fetchCountriesByRegion("Africa"));
-    }
-  }, [dispatch]);
+useEffect(() => {
+  if (africaCountries.length === 0) {
+    dispatch(fetchCountriesByRegion("Africa"));
+  }
+}, [dispatch, africaCountries.length]);
 
     if (loading) return (
     <section className="w-full bg-slate-800 flex items-center justify-center" style={{ minHeight: "calc(100vh - 64px)" }}>
