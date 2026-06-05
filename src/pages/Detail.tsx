@@ -21,7 +21,7 @@ const Detail = ()=> {
     return(
     
 
-          <section className="w-full bg-slate-800 p-7 h-full" style={{ minHeight: "calc(100vh - 64px)" }}>
+          <section className="w-full bg-slate-800 p-7 min-h-screen" >
                   <Link to="/" className="flex items-center p-5 gap-2 px-6 py-2 bg-slate-700 rounded shadow text-sm font-medium text-white transition-colors mb-14 border border-white/10 w-[120px]">
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
