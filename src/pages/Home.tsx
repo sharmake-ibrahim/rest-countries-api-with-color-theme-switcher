@@ -29,6 +29,18 @@ const Home = () => {
     () => all.filter(c => c.name.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
     [all, debouncedSearch]
   );
+  
+  if (loading) return (
+    <section className="w-full light:bg-white dark:bg-slate-800 flex items-center justify-center" style={{ minHeight: "calc(100vh - 64px)" }}>
+      <p className="text-white text-xl">Loading...</p>
+    </section>
+  );
+
+  if (error) return (
+    <section className="w-full light:bg-white dark:bg-slate-800 flex items-center justify-center" style={{ minHeight: "calc(100vh - 64px)" }}>
+      <p className="text-red-400 text-xl">{error}</p>
+    </section>
+  );
   return (
 
     <>
@@ -39,7 +51,7 @@ const Home = () => {
 
           {countries.length === 0 ? <p className="text-slate-800 dark:text-white text-center pt-10">No countries found.</p>
             : countries.map((nation, index) => (
-              <Link key={nation.cca3} to={`/${nation.name.common}`}>
+              <Link key={index} to={`/${nation.name.common}`}>
 
 
                 <Card country={nation} />
