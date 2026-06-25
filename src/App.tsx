@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
@@ -16,31 +16,31 @@ import Header from './pages/Header';
 import { useTheme } from './hooks/UseTheme';
 
 function App() {
-  const {theme, toggleTheme} = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <BrowserRouter>
-    <div className="min-h-screen bg-stone-50  dark:bg-slate-800 text-slate-800 dark:text-white duration-300">
-
-    
-     <Header theme={theme} onToggle={toggleTheme} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/:countryIndex' element={<Detail />} />
-        <Route path='/africa' element={<Africa />} />
-        <Route path='/africa/:common' element={<AfricaDetail />} />
-        <Route path='/america' element={<America />} />
-        <Route path='/america/:common' element={<AmericaDetail />} />
-        <Route path='/asia' element={<Asia />} />
-        <Route path='/asia/:common' element={<AsiaDetail />} />
-        <Route path='/europe' element={<Europe />} />
-        <Route path='/europe/:common' element={<EuropeDetail />} />
-        <Route path='/oceania' element={<Oceania />} />
-        <Route path='/oceania/:common' element={<OceaniaDetail />} />
+      <div className="min-h-screen bg-stone-50  dark:bg-slate-800 text-slate-800 dark:text-white duration-300">
 
 
-      </Routes>
-    </div>
+        <Header theme={theme} onToggle={toggleTheme} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/:countryIndex' element={<Detail />} />
+          <Route path='/africa' element={<Africa />} />
+          <Route path='/africa/:common' element={<AfricaDetail />} />
+          <Route path='/america' element={<America />} />
+          <Route path='/america/:common' element={<AmericaDetail />} />
+          <Route path='/asia' element={<Asia />} />
+          <Route path='/asia/:common' element={<AsiaDetail />} />
+          <Route path='/europe' element={<Europe />} />
+          <Route path='/europe/:common' element={<EuropeDetail />} />
+          <Route path='/oceania' element={<Oceania />} />
+          <Route path='/oceania/:common' element={<OceaniaDetail />} />
+
+
+        </Routes>
+      </div>
     </BrowserRouter>
   )
 }

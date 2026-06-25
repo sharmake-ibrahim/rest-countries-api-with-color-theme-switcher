@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { useEffect, useState, useMemo } from "react";
 import Card from "./Card";
-import Header from "./Header";
 import DropDown from "./DropDown";
 import { useDebounce } from "use-debounce";
 
