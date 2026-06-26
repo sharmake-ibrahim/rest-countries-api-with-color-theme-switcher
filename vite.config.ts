@@ -6,4 +6,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react()],
+    server: {
+      origin:"http://localhost:5173"
+    }
 })
