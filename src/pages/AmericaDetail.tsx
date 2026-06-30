@@ -6,18 +6,18 @@ import { useEffect } from "react";
 import { fetchCountriesByRegion } from "../state/CountrySlice/countrySlice";
 const AmericaDetail = () => {
   const dispatch = useAppDispatch();
-  const americaCountries = useAppSelector((state) => state.countries.America);
+  const americaCountries = useAppSelector((state) => state.countries.all);
 
   const { common } = useParams()
 
 
   useEffect(() => {
     if (americaCountries.length === 0) {
-      dispatch(fetchCountriesByRegion("America"));
+      dispatch(fetchCountriesByRegion("Americas"));
     }
   }, [dispatch, americaCountries.length]);
 
-  const pageInfo = americaCountries.find((country) => country.name.common === common);
+  const pageInfo = americaCountries.find((country) => country.names.common === common);
 
 
 
@@ -34,18 +34,18 @@ const AmericaDetail = () => {
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-7 max-w-7xl justify-center place-items-center">
 
-        <img className="w-75 md:w-125  lg:w-135 rounded-md" src={pageInfo?.flags.png && pageInfo.flags.svg} alt="" />
+        <img className="w-75 md:w-125  lg:w-135 rounded-md" src={pageInfo?.flag.url_png && pageInfo.flag.url_svg} alt="" />
 
         <div className="flex-1 flex flex-col justify-center m-2">
-          <h1 className="text-3xl font-bold mb-8 text-slate-800 dark:text-white">{pageInfo?.capital}</h1>
+          <h1 className="text-3xl font-bold mb-8 text-slate-800 dark:text-white">{pageInfo?.names.common}</h1>
 
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 mb-10 text-slate-800 dark:text-white">
             <div className="flex flex-col gap-2">
-              <p className="text-sm"><span className="font-semibold">Native Name:</span>{pageInfo?.name.official} </p>
+              <p className="text-sm"><span className="font-semibold">Native Name:</span>{pageInfo?.names.official} </p>
               <p className="text-sm"><span className="font-semibold">Population:</span> {pageInfo?.population}</p>
               <p className="text-sm"><span className="font-semibold">Region:</span> {pageInfo?.region}</p>
 
-              <p className="text-sm"><span className="font-semibold">Capital:</span> {pageInfo?.capital}</p>
+              <p className="text-sm"><span className="font-semibold">Capital:</span> {pageInfo?.capitals[0].name}</p>
               <p className="text-sm"><span className="font-semibold">Currencies:</span>
 
                 {Object.values(pageInfo?.currencies ?? {}).map((currency) => (
@@ -56,8 +56,8 @@ const AmericaDetail = () => {
               </p>
               <p className="text-sm"><span className="font-semibold">Languages:</span>
 
-                {Object.values(pageInfo?.languages ?? {}).map((language) => (
-                  <span key={language}>{language}</span>
+                {Object.values(pageInfo?.languages ?? {}).map((language, index) => (
+                  <span key={index}>{language.name}</span>
                 ))}
               </p>
             </div>

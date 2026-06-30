@@ -26,7 +26,7 @@ const Home = () => {
 
   // console.log(all);
   const countries = useMemo(
-    () => all.filter(c => c.name.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
+    () => all.filter(c => c.names.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
     [all, debouncedSearch]
   );
   
@@ -51,7 +51,7 @@ const Home = () => {
 
           {countries.length === 0 ? <p className="text-slate-800 dark:text-white text-center pt-10">No countries found.</p>
             : countries.map((nation, index) => (
-              <Link key={index} to={`/${nation.name.common}`}>
+              <Link key={index} to={`/${nation.names.common}`}>
 
 
                 <Card country={nation} />

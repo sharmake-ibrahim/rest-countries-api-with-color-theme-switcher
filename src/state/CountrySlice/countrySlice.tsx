@@ -1,85 +1,70 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-export type NativeName = {
-  official: string;
-  common: string;
-};
+import Oceania from "../../pages/Oceania";
 
-export type Currency = {
-  name: string;
-  symbol: string;
-};
+// ─── Types ───────────────────────────────────────────────────────────────────
 
 export type Country = {
-  name: {
-    common: string;
-    official: string;
-    nativeName: Record<string, NativeName>;
-  };
-  flags: {
-    svg: string;
-    png: string;
-    alt: string;
-  };
-  tld: string[];                        // e.g. [".ai"], [".uk"]
-  currencies: Record<string, Currency>; // e.g. { "USD": { name: "...", symbol: "$" } }
-  languages: Record<string, string>;    // e.g. { "eng": "English" }
-  capital: string[];                    // can be empty []
+  names: { common: string; official: string };
+  flag: { url_png: string; url_svg: string; emoji: string };
+  capitals: { name: string }[];
   region: string;
   subregion: string;
-  borders: string[];                    // CCA3 codes, can be empty []
   population: number;
+  borders: string[];
+  languages: { name: string }[];
+  currencies: { code: string; name: string; symbol: string }[];
+  tlds: string[];
 };
 
-// ─── Region ──────────────────────────────────────────────────────────────────
-
-export type RegionKey = "Africa" | "America" | "Asia" | "Europe" | "Oceania";
+export type RegionKey = "Africa" | "Americas" | "Asia" | "Europe" | "Oceania";
 
 // ─── State ───────────────────────────────────────────────────────────────────
 
 interface CountriesState {
   all: Country[];
-  Africa: Country[];
-  America: Country[];
-  Asia: Country[];
-  Europe: Country[];
-  Oceania: Country[];
+  byRegion: Record<RegionKey, Country[]>;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: CountriesState = {
   all: [],
-  Africa: [],
-  America: [],
-  Asia: [],
-  Europe: [],
-  Oceania: [],
+   byRegion: {
+    Africa: [],
+    Americas: [],
+    Asia: [],
+    Europe: [],
+    Oceania: [],
+  },
   loading: false,
   error: null,
 };
 
+// ─── Thunks ──────────────────────────────────────────────────────────────────
 
-
-
+// Fetch ALL countries
 export const fetchAllCountries = createAsyncThunk(
   "countries/fetchAll",
   async () => {
-    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,capital,currencies,region,subregion,languages,borders,tld,flags,population");
-    if (!res.ok) throw new Error("Failed to fetch countries");
-    return res.json() as Promise<Country[]>;
+    const res = await fetch("/api/proxy");
+    if (!res.ok) throw new Error("Failed to fetch");
+    const { countries } = await res.json();
+    return countries as Country[];
   }
 );
 
-const FIELDS = "name,flags,tld,currencies,languages,capital,region,subregion,borders,population";
+// Fetch by region  e.g. fetchCountriesByRegion("Europe")
 export const fetchCountriesByRegion = createAsyncThunk(
   "countries/fetchByRegion",
   async (region: RegionKey) => {
-    const res = await fetch(`https://restcountries.com/v3.1/region/${region}?fields=${FIELDS}`);
-    if (!res.ok) throw new Error(`Failed to fetch ${region}`);
-    const data: Country[] = await res.json();
-    return { region, data };
+    const res = await fetch(`/api/proxy?region=${region}`);
+    if (!res.ok) throw new Error("Failed to fetch");
+    const { countries } = await res.json();
+    return countries as Country[];
   }
 );
+
+// ─── Slice ───────────────────────────────────────────────────────────────────
 
 const countriesSlice = createSlice({
   name: "countries",
@@ -99,9 +84,18 @@ const countriesSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? "Unknown error";
       })
+      .addCase(fetchCountriesByRegion.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(fetchCountriesByRegion.fulfilled, (state, action) => {
-        const { region, data } = action.payload;
-        state[region] = data;
+        state.loading = false;
+        state.byRegion[action.meta.arg] = action.payload; 
+      })
+
+      .addCase(fetchCountriesByRegion.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Unknown error";
       });
   },
 });

@@ -9,7 +9,7 @@ import { useDebounce } from "use-debounce";
 
 const America = () => {
   const dispatch = useAppDispatch();
-  const americaCountries = useAppSelector((state) => state.countries.America);
+  const americaCountries = useAppSelector((state) => state.countries.byRegion["Americas"]);
   const loading = useAppSelector((state) => state.countries.loading);
   const error = useAppSelector((state) => state.countries.error);
 
@@ -19,12 +19,12 @@ const America = () => {
 
   useEffect(() => {
     if (americaCountries.length === 0) {
-      dispatch(fetchCountriesByRegion("America"));
+      dispatch(fetchCountriesByRegion("Americas"));
     }
   }, [dispatch, americaCountries.length]);
 
   const countries = useMemo(
-    () => americaCountries.filter(c => c.name.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
+    () => americaCountries.filter(c => c.names.common.toLowerCase().includes(debouncedSearch.toLowerCase())),
     [americaCountries, debouncedSearch]
   );
 
@@ -47,7 +47,7 @@ const America = () => {
         <div className="container mx-auto px-4 max-w-6xl justify-center grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-y-2 gap-x-2 pt-5">
           {countries.length === 0 ? <p className="text-white text-center pt-10">No countries found.</p> :
             countries.map((nation, index) => (
-              <Link key={index} to={`/america/${nation.name.common}`}>
+              <Link key={index} to={`/america/${nation.names.common}`}>
 
 
                 <Card country={nation} />
