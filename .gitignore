@@ -1,5 +1,5 @@
 
-.env
+
 # Logs
 logs
 *.log
@@ -26,3 +26,6 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+
+#secret
+.env
